@@ -110,14 +110,30 @@ cd /path/to/your/new-project
 
 ## Pax Designer
 
-Pax Designer, Pax uygulamalarını görsel olarak tasarlamak için kullanılan bir araçtır. Ancak, derlenmesi ve çalıştırılması uzun sürebilir.
+Pax Designer, Pax uygulamalarını görsel olarak tasarlamak için kullanılan bir araçtır. Designer modunu etkinleştirmek için `--no-designer` parametresini kullanmayın.
+
+### Designer Modunda Çalıştırma
 
 ```bash
-cd pax-designer
-cargo run --features web
+cd examples/src/increment
+./pax run --target=web
 ```
 
-Not: Pax Designer'ı çalıştırmak için daha güçlü bir bilgisayar gerekebilir, çünkü derleme işlemi oldukça kaynak yoğundur.
+Bu komut uygulamayı designer modunda çalıştırır ve şu özellikleri sunar:
+
+- **Sol Panel**: Bileşen hiyerarşisi (Group, Text, Rectangle vb.)
+- **Üst Araç Çubuğu**: Seçim, kalem, dikdörtgen, metin araçları
+- **Ana Canvas**: Görsel düzenleme alanı
+- **Play/Stop Butonları**: Tasarım ve çalışma modları arasında geçiş
+
+### Designer Arayüzü Özellikleri
+
+1. **Bileşen Seçimi**: Sol panelden bileşenleri seçebilirsiniz
+2. **Görsel Düzenleme**: Canvas üzerinde bileşenleri sürükleyip bırakabilirsiniz
+3. **Özellik Düzenleme**: Seçili bileşenlerin özelliklerini değiştirebilirsiniz
+4. **Canlı Önizleme**: "Play" butonuna basarak uygulamayı test edebilirsiniz
+
+Not: Designer modunun derlenmesi normal moddan daha uzun sürebilir, ancak güçlü görsel tasarım araçları sunar.
 
 ## Pax Projesi Yapısı
 
@@ -193,7 +209,10 @@ cargo install wasm-pack
 
 ### Derleme Süresi
 
-Pax projelerinin derlenmesi, özellikle ilk kez derlenirken uzun sürebilir. Bu normal bir durumdur, çünkü Rust kodunun WebAssembly'ye dönüştürülmesi gerekir.
+Pax projelerinin derlenmesi, özellikle ilk kez derlenirken uzun sürebilir (10-20 dakika). Bu normal bir durumdur, çünkü:
+- Rust kodunun WebAssembly'ye dönüştürülmesi gerekir
+- Birçok bağımlılık indirilip derlenir
+- Designer modu ek bileşenler gerektirir
 
 ### Bağımlılık Hataları
 
@@ -203,7 +222,44 @@ Eğer bağımlılık hataları alırsanız, gerekli sistem paketlerinin yüklü 
 sudo apt-get install pkg-config libpango1.0-dev libcairo2-dev
 ```
 
+### Designer Modu Sorunları
+
+Eğer designer modu çalışmıyorsa:
+1. `--no-designer` parametresini kullanmayın
+2. Derleme işleminin tamamlanmasını bekleyin
+3. Tarayıcıda http://127.0.0.1:8080 adresini açın
+
+### Port Sorunları
+
+Eğer port zaten kullanılıyorsa, farklı bir port belirtin:
+```bash
+./pax run --target=web --port 8081
+```
+
+Not: `--host` parametresi bazı sürümlerde desteklenmeyebilir.
+
+## Test Edilmiş Örnekler
+
+Aşağıdaki örnekler başarıyla test edilmiştir:
+
+### Increment Örneği ✅
+- **Normal Mod**: Tıklanabilir sayaç, renk değişimi, döndürme animasyonu
+- **Designer Mod**: Tam işlevsel görsel tasarım arayüzü
+- **Özellikler**: Reaktif UI, animasyonlar, event handling
+
+### Fireworks Örneği ✅
+- Animasyonlu havai fişek efektleri
+- Canvas tabanlı rendering
+
+### Calculator Örneği ✅
+- Fonksiyonel hesap makinesi
+- Buton etkileşimleri
+
 ## Kaynaklar
 
 - [Pax GitHub Repository](https://github.com/walue-ultralight/pax)
 - [Pax Resmi Websitesi](https://pax.dev/)
+
+## Katkıda Bulunanlar
+
+Bu rehber, Pax framework'ünün pratik kullanımı ve test edilmiş örnekleri içerir. Tüm komutlar ve örnekler gerçek ortamda test edilmiştir.
