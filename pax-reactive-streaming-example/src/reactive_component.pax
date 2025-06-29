@@ -1,0 +1,84 @@
+<Group x=50% y=50% width=80% height=80%>
+    <Rectangle fill=rgb(30, 30, 40) corner_radii={RectangleCornerRadii::radii(10.0, 10.0, 10.0, 10.0)}/>
+    
+    <!-- Header -->
+    <Group x=50% y=10% width=90% height=15%>
+        <Text x=50% y=50% text="Pax Reactive Streaming Demo" id=title/>
+    </Group>
+    
+    <!-- Connection Status -->
+    <Group x=50% y=25% width=90% height=10%>
+        <Text x=50% y=50% text={"Connected Components: " + connected_components.len()} id=status/>
+    </Group>
+    
+    <!-- Update Counter -->
+    <Group x=50% y=35% width=90% height=10%>
+        <Text x=50% y=50% text={"Updates Received: " + update_count} id=counter/>
+    </Group>
+    
+    <!-- Last Update Info -->
+    <Group x=50% y=45% width=90% height=15%>
+        <Rectangle fill=rgb(50, 50, 60) corner_radii={RectangleCornerRadii::radii(5.0, 5.0, 5.0, 5.0)}/>
+        <Text x=50% y=50% text={"Last Update: " + last_update} id=last_update/>
+    </Group>
+    
+    <!-- Connected Components List -->
+    <Group x=50% y=65% width=90% height=25%>
+        <Rectangle fill=rgb(40, 40, 50) corner_radii={RectangleCornerRadii::radii(5.0, 5.0, 5.0, 5.0)}/>
+        <Text x=50% y=10% text="Connected Components:" id=list_header/>
+        
+        <!-- Dynamic component list would be rendered here -->
+        for (component, i) in connected_components.iter().enumerate() {
+            <Group x=10% y={(20 + i * 8) + "%"} width=80% height=6%>
+                <Text x=0% y=50% text={"• " + component} id={"component_" + i}/>
+            </Group>
+        }
+    </Group>
+    
+    <!-- Real-time indicators -->
+    <Group x=90% y=10% width=8% height=8%>
+        <Ellipse fill=if update_count > 0 { GREEN } else { RED }/>
+    </Group>
+</Group>
+
+@settings {
+    #title {
+        style: {
+            font: Font::Web("Arial", "", FontStyle::Normal, FontWeight::Bold)
+            font_size: 24px
+            fill: WHITE
+            align_vertical: TextAlignVertical::Center
+            align_horizontal: TextAlignHorizontal::Center
+        }
+    }
+    
+    #status, #counter {
+        style: {
+            font: Font::Web("Arial", "", FontStyle::Normal, FontWeight::Normal)
+            font_size: 16px
+            fill: rgb(200, 200, 200)
+            align_vertical: TextAlignVertical::Center
+            align_horizontal: TextAlignHorizontal::Center
+        }
+    }
+    
+    #last_update {
+        style: {
+            font: Font::Web("Courier", "", FontStyle::Normal, FontWeight::Normal)
+            font_size: 12px
+            fill: rgb(180, 180, 180)
+            align_vertical: TextAlignVertical::Center
+            align_horizontal: TextAlignHorizontal::Center
+        }
+    }
+    
+    #list_header {
+        style: {
+            font: Font::Web("Arial", "", FontStyle::Normal, FontWeight::Bold)
+            font_size: 14px
+            fill: WHITE
+            align_vertical: TextAlignVertical::Center
+            align_horizontal: TextAlignHorizontal::Center
+        }
+    }
+}

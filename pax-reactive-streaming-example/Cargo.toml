@@ -1,0 +1,32 @@
+[package]
+name = "pax-reactive-streaming"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pax-engine = { path = "../pax/pax-engine" }
+pax-std = { path = "../pax/pax-std" }
+pax-kit = { path = "../pax/pax-kit" }
+pax-runtime-api = { path = "../pax/pax-runtime-api" }
+pax-manifest = { path = "../pax/pax-manifest" }
+pax-designtime = { path = "../pax/pax-designtime" }
+
+# WebSocket and streaming dependencies
+tokio = { version = "1.0", features = ["full"] }
+tokio-tungstenite = "0.20"
+futures-util = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+uuid = { version = "1.0", features = ["v4"] }
+dashmap = "5.5"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# For DAG operations
+petgraph = "0.6"
+
+[features]
+default = ["web"]
+web = ["pax-engine/web"]
+designer = ["pax-engine/designer"]
